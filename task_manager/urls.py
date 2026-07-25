@@ -16,15 +16,15 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from django.http import HttpResponse
+from django.shortcuts import render
 
 
 
-def home_view(request):
-    return HttpResponse("Bienvenido a Task Manager!")
+def index(request):
+    return render(request, 'index.html')
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', home_view),
+    path('', index),
 ]
