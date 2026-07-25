@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1 class="my-4">Usuarios</h1>
+
+<table class="table table-striped align-middle">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nombre de usuario</th>
+            <th>Nombre completo</th>
+            <th>Fecha de creación</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for u in users %}
+        <tr>
+            <td>{{ u.id }}</td>
+            <td>{{ u.username }}</td>
+            <td>{{ u.first_name }} {{ u.last_name }}</td>
+            <td>{{ u.date_joined|date:"d.m.Y H:i" }}</td>
+            <td>
+                {% if user.is_authenticated and user.id == u.id %}
+                    <a href="{% url 'user_update' u.id %}">Editar</a>
+                    <a href="{% url 'user_delete' u.id %}">Eliminar</a>
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
