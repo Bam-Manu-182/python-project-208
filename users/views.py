@@ -7,6 +7,8 @@ from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 from django.contrib import messages
 from .forms import UserCreateForm
+from django.db.models import ProtectedError
+from django.shortcuts import redirect
 
 # Create your views here.
 
@@ -44,6 +46,16 @@ class UserDeleteView(LoginRequiredMixin, UserPassesTestMixin, SuccessMessageMixi
     def test_func(self):
         user = self.get_object()
         return self.request.user == user
+
+    def post(self, request, *args, **kwargs):
+        try:
+            return super().post(request, *args, **kwargs)
+        except ProtectedError:
+            messages.error(
+                request,
+                'No se puede eliminar un usuario porque está en uso'
+            )
+            return redirect('user_list')
 
 
 class UserLoginView(SuccessMessageMixin, LoginView):

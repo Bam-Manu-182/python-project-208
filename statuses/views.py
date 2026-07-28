@@ -6,6 +6,8 @@ from django.urls import reverse_lazy
 from django.contrib import messages
 from .models import Status
 from .forms import StatusForm
+from django.db.models import ProtectedError
+from django.shortcuts import redirect
 
 # Create your views here.
 
@@ -31,11 +33,20 @@ class StatusUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     success_message = 'Estado actualizado con éxito'
 
 
+
 class StatusDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
     model = Status
     template_name = 'statuses/status_confirm_delete.html'
     success_url = reverse_lazy('status_list')
     success_message = 'Estado eliminado con éxito'
 
+
     def post(self, request, *args, **kwargs):
-        return super().post(request, *args, **kwargs)
+        try:
+            return super().post(request, *args, **kwargs)
+        except ProtectedError:
+            messages.error(
+                request,
+                'No se puede eliminar un estado porque está en uso.'
+            )
+            return redirect('status_list')
