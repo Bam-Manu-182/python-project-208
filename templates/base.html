@@ -18,6 +18,7 @@
 
                 {% if user.is_authenticated %}
                     <a class="nav-link" href="{% url 'status_list' %}">Estados</a>
+                    <a class="nav-link" href="{% url 'label_list' %}">Etiquetas</a>
                     <a class="nav-link" href="{% url 'task_list' %}">Tareas</a>
                     <form action="{% url 'logout' %}" method="post" class="d-inline">
                         {% csrf_token %}

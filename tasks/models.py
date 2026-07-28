@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth import get_user_model
 from statuses.models import Status
+from labels.models import Label
 
 # Create your models here.
 
@@ -28,6 +29,11 @@ class Task(models.Model):
         null=True,
         blank=True,
         verbose_name='Ejecutor'
+    )
+    labels = models.ManyToManyField(
+        Label,
+        blank=True,
+        verbose_name='Etiquetas'
     )
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Fecha de creación')
 
