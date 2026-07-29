@@ -11,4 +11,5 @@ dependencies = [
     "psycopg>=3.3.4",
     "psycopg2>=2.9.12",
     "django-bootstrap5>=26.2",
+    "django-filter>=26.1",
 ]
