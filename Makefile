@@ -14,7 +14,7 @@ start:
 	uv run python manage.py runserver
 
 render-start:
-	uv run gunicorn task_manager.wsgi
+	uv run gunicorn task_manager.wsgi:application --bind 0.0.0.0:$(PORT)
 
 test:
 	uv run python manage.py test
