@@ -6,7 +6,6 @@ import os
 from pathlib import Path
 import dj_database_url
 from dotenv import load_dotenv
-import os
 
 # Carga las variables de entorno desde un archivo .env si existe
 load_dotenv()
@@ -21,7 +20,7 @@ SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-c!&wl7m3mxwokdc!o7-01@cfti
 DEBUG = os.getenv('DEBUG', 'True') == 'True'
 
 # Hosts permitidos
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'webserver', '.onrender.com']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'webserver', '.onrender.com', '*']
 
 
 # Aplicaciones instaladas
@@ -109,7 +108,7 @@ USE_TZ = True
 
 
 # Archivos estáticos (CSS, JS, imágenes)
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 

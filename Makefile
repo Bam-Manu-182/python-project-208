@@ -11,7 +11,10 @@ build:
 	bash ./build.sh
 
 start:
+	uv run python manage.py runserver
+
+render-start:
 	uv run gunicorn task_manager.wsgi
 
 test:
-	uv run python manage.py runserver
+	uv run python manage.py test
