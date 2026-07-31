@@ -22,7 +22,7 @@ class UserCreateView(SuccessMessageMixin, CreateView):
     form_class = UserCreateForm
     template_name = 'users/user_form.html'
     success_url = reverse_lazy('login')
-    success_message = 'El usuario se registró con éxito'
+    success_message = 'Usuario registrado con éxito'
 
 
 class UserUpdateView(LoginRequiredMixin, UserPassesTestMixin, SuccessMessageMixin, UpdateView):
@@ -30,7 +30,7 @@ class UserUpdateView(LoginRequiredMixin, UserPassesTestMixin, SuccessMessageMixi
     fields = ['first_name', 'last_name', 'username']
     template_name = 'users/user_update.html'
     success_url = reverse_lazy('user_list')
-    success_message = 'El usuario se actualizó con éxito'
+    success_message = 'Usuario actualizado con éxito'
 
     def test_func(self):
         user = self.get_object()
