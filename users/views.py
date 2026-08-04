@@ -42,7 +42,7 @@ class UserDeleteView(LoginRequiredMixin, UserPassesTestMixin, SuccessMessageMixi
     model = User
     template_name = 'users/user_confirm_delete.html'
     success_url = reverse_lazy('user_list')
-    success_message = 'El usuario se eliminó con éxito'
+    success_message = 'Usuario eliminado con éxito'
 
     def test_func(self):
         user = self.get_object()
