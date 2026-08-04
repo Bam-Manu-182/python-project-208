@@ -11,6 +11,8 @@ build:
 	bash ./build.sh
 
 start:
+	rm -f db.sqlite3
+	uv run python manage.py migrate
 	uv run python manage.py runserver
 
 render-start:
