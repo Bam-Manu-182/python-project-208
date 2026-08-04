@@ -22,8 +22,8 @@
             <td>{{ u.date_joined|date:"d.m.Y H:i" }}</td>
             <td>
                 {% if user.is_authenticated and user.id == u.id %}
-                    <a href="{% url 'user_update' u.id %}">Editar</a>
-                    <a href="{% url 'user_delete' u.id %}">Eliminar</a>
+                    <a class="btn btn-primary btn-sm" href="{% url 'user_update' u.id %}">Editar</a>
+                    <a class="btn btn-danger btn-sm" href="{% url 'user_delete' u.id %}">Eliminar</a>
                 {% endif %}
             </td>
         </tr>
