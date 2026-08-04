@@ -23,7 +23,7 @@ class UserCreateView(SuccessMessageMixin, CreateView):
     form_class = UserCreateForm
     template_name = 'users/user_form.html'
     success_url = reverse_lazy('login')
-    success_message = 'Usuario registrado con éxito'
+    success_message = "Usuario registrado con éxito"
 
 
 class UserUpdateView(LoginRequiredMixin, UserPassesTestMixin, SuccessMessageMixin, UpdateView):
