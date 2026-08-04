@@ -11,4 +11,8 @@ class UserCreateForm(UserCreationForm):
 
     class Meta(UserCreationForm.Meta):
         model = User
-        fields = ('first_name', 'last_name', 'username', 'password1', 'password2')
+        fields = ('first_name', 'last_name', 'username')
+
+
+class UserUpdateForm(UserCreateForm):
+    pass

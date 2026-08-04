@@ -6,7 +6,7 @@ from django.contrib.messages.views import SuccessMessageMixin
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 from django.contrib import messages
-from .forms import UserCreateForm
+from .forms import UserCreateForm, UserUpdateForm
 from django.db.models import ProtectedError
 from django.shortcuts import redirect
 
@@ -28,7 +28,7 @@ class UserCreateView(SuccessMessageMixin, CreateView):
 
 class UserUpdateView(LoginRequiredMixin, UserPassesTestMixin, SuccessMessageMixin, UpdateView):
     model = User
-    fields = ['first_name', 'last_name', 'username']
+    form_class = UserUpdateForm
     template_name = 'users/user_update.html'
     success_url = reverse_lazy('user_list')
     success_message = 'Usuario actualizado con éxito'
