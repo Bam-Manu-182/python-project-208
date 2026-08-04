@@ -62,12 +62,12 @@ class UserDeleteView(LoginRequiredMixin, UserPassesTestMixin, SuccessMessageMixi
 class UserLoginView(SuccessMessageMixin, LoginView):
     template_name = 'users/login.html'
     next_page = reverse_lazy('index')
-    success_message = 'Ha iniciado sesión'
+    success_message = 'Has iniciado sesión'
 
 
 class UserLogoutView(LogoutView):
     next_page = reverse_lazy('index')
 
     def dispatch(self, request, *args, **kwargs):
-        messages.info(request, 'Ha cerrado sesión')
+        messages.info(request, 'Has cerrado sesión')
         return super().dispatch(request, *args, **kwargs)
