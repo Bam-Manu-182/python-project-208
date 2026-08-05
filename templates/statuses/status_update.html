@@ -2,11 +2,11 @@
 {% load django_bootstrap5 %}
 
 {% block content %}
-<h1 class="my-4">Cambiar estado</h1>
+<h1 class="my-4">Editar estado</h1>
 
 <form method="post">
     {% csrf_token %}
     {% bootstrap_form form %}
-    <button type="submit" class="btn btn-primary">Actualizar</button>
+    <button type="submit" class="btn btn-primary">Editar</button>
 </form>
 {% endblock %}
