@@ -53,6 +53,6 @@ class LabelDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
         except ProtectedError:
             messages.error(
                 request,
-                'No se puede eliminar una etiqueta porque está en uso'
+                'No se puede eliminar la etiqueta'
             )
             return redirect('label_list')
