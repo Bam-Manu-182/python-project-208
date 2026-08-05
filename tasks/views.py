@@ -55,6 +55,6 @@ class TaskDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
         # Regla: Solo el autor puede eliminar la tarea
         task = self.get_object()
         if task.author != request.user:
-            messages.error(request, 'Solo el autor de la tarea puede eliminarla')
+            messages.error(request, 'Solo el autor puede eliminar la tarea')
             return redirect('task_list')
         return super().dispatch(request, *args, **kwargs)
