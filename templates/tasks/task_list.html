@@ -4,7 +4,7 @@
 {% block content %}
 <div class="container mt-4">
     <h1 class="mb-4">Tareas</h1>
-    <a href="{% url 'task_create' %}" class="btn btn-primary mb-3" role="button">Crear tarea</a>
+    <a href="{% url 'task_create' %}" class="btn btn-primary mb-3">Crear tarea</a>
 
     <div class="card card-body bg-light mb-4">
         <form method="get" class="form-inline">
@@ -35,8 +35,8 @@
                 <td>{{ task.executor.get_full_name|default:task.executor.username }}</td>
                 <td>{{ task.created_at|date:"d.m.Y H:i" }}</td>
                 <td>
-                    <a class="btn btn-primary btn-sm" role="button" href="{% url 'task_update' task.id %}">Editar</a>
-                    <a class="btn btn-danger btn-sm" role="button" href="{% url 'task_delete' task.id %}">Eliminar</a>
+                    <a class="btn btn-primary btn-sm" href="{% url 'task_update' task.id %}">Editar</a>
+                    <a class="btn btn-danger btn-sm" href="{% url 'task_delete' task.id %}">Eliminar</a>
                 </td>
             </tr>
             {% empty %}

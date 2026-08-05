@@ -3,7 +3,7 @@
 {% block content %}
 <h1 class="my-4">Estados</h1>
 
-<a href="{% url 'status_create' %}" class="btn btn-primary mb-3" role="button">Crear estado</a>
+<a href="{% url 'status_create' %}" class="btn btn-primary mb-3">Crear estado</a>
 
 <table class="table table-striped align-middle">
     <thead>
@@ -21,9 +21,13 @@
             <td>{{ status.name }}</td>
             <td>{{ status.created_at|date:"d.m.Y H:i" }}</td>
             <td>
-                <a class="btn btn-primary btn-sm" role="button" href="{% url 'status_update' status.id %}">Editar</a>
-                <a class="btn btn-danger btn-sm" role="button" href="{% url 'status_delete' status.id %}">Eliminar</a>
+                <a class="btn btn-primary btn-sm" href="{% url 'status_update' status.id %}">Editar</a>
+                <a class="btn btn-danger btn-sm" href="{% url 'status_delete' status.id %}">Eliminar</a>
             </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="4">No hay estados creados.</td>
         </tr>
         {% endfor %}
     </tbody>
