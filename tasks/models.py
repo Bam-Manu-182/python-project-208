@@ -9,7 +9,7 @@ User = get_user_model()
 
 
 class Task(models.Model):
-    name = models.CharField(max_length=150, verbose_name='Nombre')
+    name = models.CharField(max_length=150, unique=True, verbose_name='Nombre')
     description = models.TextField(blank=True, verbose_name='Descripción')
     status = models.ForeignKey(
         Status,
