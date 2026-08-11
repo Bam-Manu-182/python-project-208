@@ -5,6 +5,7 @@ from statuses.models import Status
 
 # Create your tests here.
 
+TEST_PASSWORD = 'password123'
 User = get_user_model()
 
 
@@ -12,7 +13,7 @@ class StatusCRUDTestCase(TestCase):
     def setUp(self):
         self.user = User.objects.create_user(
             username='testuser',
-            password='password123'
+            password=TEST_PASSWORD
         )
         self.status = Status.objects.create(name='Nuevo')
 
@@ -20,12 +21,12 @@ class StatusCRUDTestCase(TestCase):
         response = self.client.get(reverse('status_list'))
         self.assertEqual(response.status_code, 302)
 
-        self.client.login(username='testuser', password='password123')
+        self.client.login(username='testuser', password=TEST_PASSWORD)
         response = self.client.get(reverse('status_list'))
         self.assertEqual(response.status_code, 200)
 
     def test_status_create(self):
-        self.client.login(username='testuser', password='password123')
+        self.client.login(username='testuser', password=TEST_PASSWORD)
         response = self.client.post(
             reverse('status_create'),
             {'name': 'En progreso'}
@@ -34,7 +35,7 @@ class StatusCRUDTestCase(TestCase):
         self.assertTrue(Status.objects.filter(name='En progreso').exists())
 
     def test_status_update(self):
-        self.client.login(username='testuser', password='password123')
+        self.client.login(username='testuser', password=TEST_PASSWORD)
         response = self.client.post(
             reverse('status_update', args=[self.status.id]),
             {'name': 'Modificado'}
@@ -44,7 +45,7 @@ class StatusCRUDTestCase(TestCase):
         self.assertEqual(self.status.name, 'Modificado')
 
     def test_status_delete(self):
-        self.client.login(username='testuser', password='password123')
+        self.client.login(username='testuser', password=TEST_PASSWORD)
         response = self.client.post(
             reverse('status_delete', args=[self.status.id])
         )

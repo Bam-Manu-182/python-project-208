@@ -5,6 +5,8 @@
 Badge CodeClimate:
 [![Maintainability](https://qlty.sh/gh/Bam-Manu-182/projects/python-project-208/maintainability.svg)](https://qlty.sh/gh/Bam-Manu-182/projects/python-project-208)
 
+[![Code Coverage](https://qlty.sh/gh/Bam-Manu-182/projects/python-project-208/coverage.svg)](https://qlty.sh/gh/Bam-Manu-182/projects/python-project-208)
+
 Proyecto Gestor de Tareas
 
 ¡Hola! Este es mi proyecto **Gestor de Tareas**, una aplicación web desarrollada con Django como parte del programa de aprendizaje de Python. Es un sistema completo de gestión de tareas donde los usuarios pueden registrarse, crear tareas, asignarles un estado y clasificarlas mediante etiquetas.

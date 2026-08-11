@@ -7,6 +7,7 @@ from labels.models import Label
 
 # Create your tests here.
 
+TEST_PASSWORD = 'password123'
 User = get_user_model()
 
 
@@ -14,11 +15,11 @@ class TaskTestCase(TestCase):
     def setUp(self):
         self.user1 = User.objects.create_user(
             username='juan',
-            password='password123'
+            password=TEST_PASSWORD
         )
         self.user2 = User.objects.create_user(
             username='maria',
-            password='password123'
+            password=TEST_PASSWORD
         )
 
         self.status = Status.objects.create(name='En progreso')
@@ -36,13 +37,13 @@ class TaskTestCase(TestCase):
         self.assertEqual(response.status_code, 302)
 
     def test_task_list_authenticated(self):
-        self.client.login(username='juan', password='password123')
+        self.client.login(username='juan', password=TEST_PASSWORD)
         response = self.client.get(reverse('task_list'))
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, 'Probar el proyecto')
 
     def test_create_task(self):
-        self.client.login(username='juan', password='password123')
+        self.client.login(username='juan', password=TEST_PASSWORD)
         response = self.client.post(reverse('task_create'), {
             'name': 'Nueva Tarea',
             'description': 'Descripción corta',
@@ -53,13 +54,13 @@ class TaskTestCase(TestCase):
         self.assertTrue(Task.objects.filter(name='Nueva Tarea').exists())
 
     def test_task_detail(self):
-        self.client.login(username='juan', password='password123')
+        self.client.login(username='juan', password=TEST_PASSWORD)
         response = self.client.get(reverse('task_detail', args=[self.task.id]))
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, 'Escribir pruebas unitarias')
 
     def test_update_task(self):
-        self.client.login(username='juan', password='password123')
+        self.client.login(username='juan', password=TEST_PASSWORD)
         response = self.client.post(reverse('task_update', args=[self.task.id]), {
             'name': 'Probar el proyecto EDITADO',
             'description': 'Descripción editada',
@@ -71,19 +72,19 @@ class TaskTestCase(TestCase):
         self.assertEqual(self.task.name, 'Probar el proyecto EDITADO')
 
     def test_delete_task_by_non_author_fails(self):
-        self.client.login(username='maria', password='password123')
+        self.client.login(username='maria', password=TEST_PASSWORD)
         response = self.client.post(reverse('task_delete', args=[self.task.id]))
         self.assertEqual(response.status_code, 302)
         self.assertTrue(Task.objects.filter(id=self.task.id).exists())
 
     def test_delete_task_by_author_success(self):
-        self.client.login(username='juan', password='password123')
+        self.client.login(username='juan', password=TEST_PASSWORD)
         response = self.client.post(reverse('task_delete', args=[self.task.id]))
         self.assertEqual(response.status_code, 302)
         self.assertFalse(Task.objects.filter(id=self.task.id).exists())
 
     def test_delete_status_in_use_fails(self):
-        self.client.login(username='juan', password='password123')
+        self.client.login(username='juan', password=TEST_PASSWORD)
         response = self.client.post(reverse('status_delete', args=[self.status.id]))
         self.assertEqual(response.status_code, 302)
         self.assertTrue(Status.objects.filter(id=self.status.id).exists())
@@ -91,8 +92,8 @@ class TaskTestCase(TestCase):
 
 class TaskFilterTestCase(TestCase):
     def setUp(self):
-        self.user1 = User.objects.create_user(username='juan', password='password123')
-        self.user2 = User.objects.create_user(username='maria', password='password123')
+        self.user1 = User.objects.create_user(username='juan', password=TEST_PASSWORD)
+        self.user2 = User.objects.create_user(username='maria', password=TEST_PASSWORD)
 
         self.status1 = Status.objects.create(name='Nueva')
         self.status2 = Status.objects.create(name='Completada')
@@ -117,19 +118,19 @@ class TaskFilterTestCase(TestCase):
         self.task2.labels.add(self.label2)
 
     def test_filter_by_status(self):
-        self.client.login(username='juan', password='password123')
+        self.client.login(username='juan', password=TEST_PASSWORD)
         response = self.client.get(reverse('task_list'), {'status': self.status1.id})
         self.assertContains(response, 'Tarea 1')
         self.assertNotContains(response, 'Tarea 2')
 
     def test_filter_by_label(self):
-        self.client.login(username='juan', password='password123')
+        self.client.login(username='juan', password=TEST_PASSWORD)
         response = self.client.get(reverse('task_list'), {'label': self.label2.id})
         self.assertContains(response, 'Tarea 2')
         self.assertNotContains(response, 'Tarea 1')
 
     def test_filter_self_tasks(self):
-        self.client.login(username='juan', password='password123')
+        self.client.login(username='juan', password=TEST_PASSWORD)
         response = self.client.get(reverse('task_list'), {'self_tasks': 'on'})
         self.assertContains(response, 'Tarea 1')
         self.assertNotContains(response, 'Tarea 2')

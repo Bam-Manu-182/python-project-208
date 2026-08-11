@@ -7,16 +7,18 @@ from tasks.models import Task
 
 # Create your tests here.
 
+TEST_PASSWORD = 'password123'
 User = get_user_model()
+
 
 
 class LabelCRUDTestCase(TestCase):
     def setUp(self):
         self.user = User.objects.create_user(
             username='testuser',
-            password='password123'
+            password=TEST_PASSWORD
         )
-        self.client.login(username='testuser', password='password123')
+        self.client.login(username='testuser', password=TEST_PASSWORD)
 
         self.label = Label.objects.create(name='Urgente')
 
