@@ -1,5 +1,4 @@
-from django.shortcuts import render
-from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.views.generic import DetailView, CreateView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.urls import reverse_lazy
@@ -52,7 +51,6 @@ class TaskDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
     success_message = 'Tarea eliminada con éxito'
 
     def dispatch(self, request, *args, **kwargs):
-        # Regla: Solo el autor puede eliminar la tarea
         task = self.get_object()
         if task.author != request.user:
             messages.error(request, 'Solo el autor puede eliminar la tarea')

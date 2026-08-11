@@ -1,0 +1,36 @@
+name: Qlty Coverage
+
+on:
+  push:
+    branches:
+      - '**'
+
+jobs:
+  coverage:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: uv sync
+
+      - name: Run tests and generate XML
+        run: |
+          uv run coverage run manage.py test
+          uv run coverage xml
+
+      - name: Install Qlty CLI and Upload Coverage
+        env:
+          QLTY_COVERAGE_TOKEN: ${{ secrets.QLTY_COVERAGE_TOKEN }}
+        run: |
+          curl -L https://qlty.sh/get | sh
+          ~/.qlty/bin/qlty coverage upload coverage.xml
