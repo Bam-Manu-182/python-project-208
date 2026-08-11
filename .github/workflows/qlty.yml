@@ -29,8 +29,13 @@ jobs:
           uv run coverage xml
 
       - name: Install Qlty CLI and Upload Coverage
+        run: |
+          curl -fsSL https://qlty.sh/get -o install_qlty.sh
+          sh install_qlty.sh
+          echo "$HOME/.qlty/bin" >> $GITHUB_PATH
+
+      - name: Upload Coverage to Qlty
         env:
           QLTY_COVERAGE_TOKEN: ${{ secrets.QLTY_COVERAGE_TOKEN }}
         run: |
-          curl -L https://qlty.sh/get | sh
-          ~/.qlty/bin/qlty coverage upload coverage.xml
+          qlty coverage upload coverage.xml
