@@ -20,3 +20,5 @@ render-start:
 
 test:
 	uv run python manage.py test
+	uv run coverage run manage.py test
+	uv run coverage report

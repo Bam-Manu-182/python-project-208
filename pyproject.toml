@@ -14,3 +14,14 @@ dependencies = [
     "django-filter>=26.1",
     "rollbar>=1.4.0",
 ]
+
+[tool.uv]
+dev-dependencies = ["coverage>=7.0"]
+
+[tool.coverage.run]
+source = ["task_manager", "users", "statuses", "tasks", "labels"]
+omit = ["*/tests/*", "*/migrations/*", "manage.py"]
+
+[tool.coverage.report]
+fail_under = 90
+show_missing = true
