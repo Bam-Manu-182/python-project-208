@@ -5,7 +5,7 @@ from statuses.models import Status
 
 # Create your tests here.
 
-TEST_PASSWORD = 'password123'
+TEST_PASSWORD = 'password123' # nosec B105 B106
 User = get_user_model()
 
 
